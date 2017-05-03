@@ -93,6 +93,38 @@ class LinkedList
     false
   end
 
+  def find data
+    if !contains? data
+      nil
+    else
+      current_node = @head
+      current_index = 0
+      if current_node.value == data
+        return current_index
+      else
+        until current_node.value == data
+          current_index += 1
+          current_node = current_node.link
+        end
+        return current_index
+      end
+    end
+  end
+
+  def to_s
+    ll_string = ''
+    current_node = @head
+    if current_node == nil
+      ll_string
+    else
+      until current_node == nil
+        ll_string << "(#{current_node.value}) -> "
+        current_node = current_node.link
+      end
+      ll_string << 'nil'
+    end
+    ll_string
+  end
 
   
 end
@@ -116,6 +148,7 @@ u.value = 5
 s.link = t
 t.link = u
 
+t.value = 'words'
 
 
 l = LinkedList.new
@@ -134,3 +167,8 @@ p l.at 2
 
 p l.contains? 5
 p l.contains? nil
+
+p l.find 'pants'
+p l.find 'words'
+
+p l.to_s
