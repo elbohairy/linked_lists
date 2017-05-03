@@ -67,7 +67,32 @@ class LinkedList
   end
 
   def pop
+    old_tail_index = self.size - 1
+    new_tail_index = self.size - 2
+    old_tail = at(old_tail_index)
+    new_tail = at(new_tail_index)
+    new_tail.link = nil
+    @tail = new_tail
+    old_tail
   end
+
+  def contains? val
+    current_node = @head
+    if current_node.value == val
+      return true
+    else
+      current_node = current_node.link
+      until current_node == nil
+        if current_node.value == val
+          return true
+        end
+        current_node = current_node.link
+      end
+    end
+
+    false
+  end
+
 
   
 end
@@ -104,3 +129,8 @@ p l.size
 p l.head
 
 p l.at 2
+
+#p l.pop
+
+p l.contains? 5
+p l.contains? nil
