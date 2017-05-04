@@ -10,6 +10,7 @@ class LinkedList
       @head = node
       @tail = node
     else
+      @tail.link = node
       @tail = node
     end
   end
@@ -21,6 +22,7 @@ class LinkedList
       @head = node
       @tail = node
     else
+      node.link = @head
       @head = node
     end
   end
@@ -126,6 +128,25 @@ class LinkedList
     ll_string
   end
 
+  def remove_at index
+    # this doesn't actually always return removed_node
+    # but it does remove the node, and update the list
+    removed_node = self.at(index)
+    if at(index) == @head
+      if self.size == 0
+        'LinkedList is empty'
+      else
+        @head = at(index + 1)
+      end 
+    elsif at(index) == @tail
+      @tail = at(index - 1)
+      @tail.link = nil
+    else
+      at(index - 1).link = at(index + 1)
+    end
+    removed_node
+  end
+
   
 end
 
@@ -144,10 +165,6 @@ t = Node.new
 u = Node.new
 
 u.value = 5
-
-s.link = t
-t.link = u
-
 t.value = 'words'
 
 
